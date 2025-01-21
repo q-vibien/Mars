@@ -31,10 +31,11 @@
           src="./assets/textures/material_0_diffuse.png"
           alt=""
         />
-        <img id="sky" src="./assets/textures/sky.jpg" />
+        <img id="sky" src="./assets/textures/sky2.webp" />
+        <audio id="audio" src="./assets/Crossing_Mars.mp3" controls></audio>
       </a-assets>
 
-      <a-sky src="#sky"></a-sky>
+      <a-sky src="#sky"rotation="0 45 0"></a-sky>
 
       <a-entity
         particle-system="preset: dust; color: #C2B280; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
@@ -98,7 +99,8 @@
         scale="45 45 20"
       >
       </a-entity>
-
+      <a-entity random-rocks></a-entity>
+      <a-sound src="#audio" autoplay="true" loop="true"></a-sound>
       <script>
         AFRAME.registerComponent("random-rocks", {
           init: function () {
@@ -117,7 +119,7 @@
           },
         });
       </script>
-      <a-entity random-rocks></a-entity>
+     
     </a-scene>
   </body>
 </html>
