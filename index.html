@@ -16,10 +16,16 @@
         <a-asset-item id="Rover" src="./assets/mars_rover_2.glb"></a-asset-item>
         <a-asset-item id="scene" src="./assets/mars_base.glb"></a-asset-item>
         <a-asset-item
-          id="arch-rock"
-          src="./assets/arch_rock.glb"
+          id="rock"
+          src="./assets/desert_rock_base.glb"
         ></a-asset-item>
         <a-asset-item id="robot" src="./assets/robot.glb"></a-asset-item>
+        <a-asset-item id="montagne" src="./assets/mountains.glb"></a-asset-item>
+        <a-asset-item id="cliff" src="./assets/cliff.glb"></a-asset-item>
+        <a-asset-item
+          id="canyon"
+          src="./assets/red_sand_desert_canyon.glb"
+        ></a-asset-item>
         <img
           id="ground"
           src="./assets/textures/material_0_diffuse.png"
@@ -27,41 +33,91 @@
         />
         <img id="sky" src="./assets/textures/sky.jpg" />
       </a-assets>
-    
+
       <a-sky src="#sky"></a-sky>
-      
-      <a-entity particle-system="preset: dust; color: #C2B280; duration: null; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .5; velocityValue: 0 10 0; velocitySpread: 5 5 5;" position="0 0 -10"></a-entity>      
+
+      <a-entity
+        particle-system="preset: dust; color: #C2B280; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
+        position="-41.525 2.161 10"
+      ></a-entity>
+      <a-entity
+        particle-system="preset: dust; color: #C2B280; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
+        position="-41.525 2.161 10"
+      ></a-entity>
+      <a-entity
+        particle-system="preset: dust; color: #C2B280; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
+        position="-41.525 2.161 10"
+      ></a-entity>
+      <a-entity
+        particle-system="preset: dust; color: #C2B280; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
+        position="-41.525 2.161 10"
+      ></a-entity>
+      <a-entity
+        particle-system="preset: dust; color: #C2B280; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
+        position="-41.525 2.161 10"
+      ></a-entity>
+
       <a-light type="ambient" color="#FFA500" intensity="1"></a-light>
-    
+
       <a-entity
         gltf-model="#Rover"
         position="-18.157 1.7 -10"
         scale=".01 .01 .01"
         rotation="0 180 0"
       ></a-entity>
-      <a-entity
-        gltf-model="#arch-rock"
-        position="-79.953 3.081 4.522"
-        scale="1.760 1.570 0"
-        rotation="0 70.000 2.190"
-      ></a-entity>
+
       <a-entity
         gltf-model="#robot"
         position="6.020 0.05 -13.680"
         scale=".008 .008 .008"
         rotation="0 147.960 0"
       ></a-entity>
-    
-      <a-entity
-        gltf-model="#scene"
-        position="0 0 -50"
-        scale="1 1 1"
-        material="src: #ground"
-      >
 
-      
+      <a-entity gltf-model="#scene" position="0 0 -50" scale="1 1 1"> </a-entity
+      ><a-entity
+        gltf-model="#montagne"
+        position="84.389 -0.5 350.407"
+        scale="5 12.340 5"
+      >
       </a-entity>
-    </a-scene>  
-    
+      <a-entity
+        gltf-model="#montagne"
+        position="270.885 -0.5 270.885"
+        scale="5 12.340 5"
+      >
+      </a-entity
+      ><a-entity
+        gltf-model="#montagne"
+        position="-118.240 -0.5 326.550"
+        scale="5 12.340 5"
+      >
+      </a-entity
+      ><a-entity
+        gltf-model="#canyon"
+        position="73.457 -1 -324.481"
+        scale="45 45 20"
+      >
+      </a-entity>
+
+      <script>
+        AFRAME.registerComponent("random-rocks", {
+          init: function () {
+            for (let i = 0; i < 15; i++) {
+              let rock = document.createElement("a-entity");
+              rock.setAttribute("gltf-model", "#rock");
+              rock.setAttribute("position", {
+                x: Math.random() * 300 - 100, // positionne aléatoirement les rochers
+                y: 0,
+                z: Math.random() * 300 - 100,
+              });
+              rock.setAttribute("scale", "2.720 3.900 2.270");
+              rock.setAttribute("rotation", "0 0 90");
+              this.el.appendChild(rock);
+            }
+          },
+        });
+      </script>
+      <a-entity random-rocks></a-entity>
+    </a-scene>
   </body>
 </html>
