@@ -2,35 +2,66 @@
 <html lang="en">
   <head>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    <title>Setup</title>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-particle-system-component@a5a8449/dist/aframe-particle-system-component.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-simple-sun-sky@^1.2.2/simple-sun-sky.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@d5f3f8/dist/aframe-extras.min.js"></script>
+    <title>Mars</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
     <!-- Ctrl alt i pour l'inspecteur -->
-
-    <a-scene fog="type: linear; color: #f15d47; near: 1; far: 10">
+    <a-scene>
       <a-assets>
-        <a-asset-item id="lamp" src="./assets/lava-lamp.glb"></a-asset-item>
-       
-      
+        <a-asset-item id="Rover" src="./assets/mars_rover_2.glb"></a-asset-item>
+        <a-asset-item id="scene" src="./assets/mars_base.glb"></a-asset-item>
+        <a-asset-item
+          id="arch-rock"
+          src="./assets/arch_rock.glb"
+        ></a-asset-item>
+        <a-asset-item id="robot" src="./assets/robot.glb"></a-asset-item>
+        <img
+          id="ground"
+          src="./assets/textures/material_0_diffuse.png"
+          alt=""
+        />
+        <img id="sky" src="./assets/textures/sky.jpg" />
       </a-assets>
-
-      <a-entity gltf-model="#lamp" position="0 1.5 -2" scale="0.1 0.1 0.1">
-        <a-light type="ambient" color="white" intensity=".75"></a-light>
-        
-
-      </a-entity>
-
-     
-        gltf-model="#lampe-sol"
-        position="-3 .15 -5"
-        scale="2 2 2"
+    
+      <a-sky src="#sky"></a-sky>
+      
+      <a-entity particle-system="preset: dust; color: #C2B280; duration: null; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .5; velocityValue: 0 10 0; velocitySpread: 5 5 5;" position="0 0 -10"></a-entity>      
+      <a-light type="ambient" color="#FFA500" intensity="1"></a-light>
+    
+      <a-entity
+        gltf-model="#Rover"
+        position="-18.157 1.7 -10"
+        scale=".01 .01 .01"
+        rotation="0 180 0"
       ></a-entity>
+      <a-entity
+        gltf-model="#arch-rock"
+        position="-79.953 3.081 4.522"
+        scale="1.760 1.570 0"
+        rotation="0 70.000 2.190"
+      ></a-entity>
+      <a-entity
+        gltf-model="#robot"
+        position="6.020 0.05 -13.680"
+        scale=".008 .008 .008"
+        rotation="0 147.960 0"
+      ></a-entity>
+    
+      <a-entity
+        gltf-model="#scene"
+        position="0 0 -50"
+        scale="1 1 1"
+        material="src: #ground"
+      >
 
-   
-   
-    </a-scene>
+      
+      </a-entity>
+    </a-scene>  
+    
   </body>
 </html>
-
