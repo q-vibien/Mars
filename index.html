@@ -122,50 +122,48 @@
       >
       </a-entity>
 
-<a-entity random-rocks></a-entity>
-<a-entity random-cliffs="positions: -198.665 0 50, 60 0 -81.339, 120 0 40.668, -150 0 -49.037, 20.141 0 98.020; scales: 0.020 0.020 0.020, 0.01 0.01 0.01, 0.007 0.007 0.007, 0.006 0.006 0.006, 0.008 0.008 0.008"></a-entity>
-<a-sound src="#audio" autoplay="true" loop="true"></a-sound>
-<script>
-  AFRAME.registerComponent("random-rocks", {
-    init: function () {
-      for (let i = 0; i < 25; i++) {
-        let rock = document.createElement("a-entity");
-        rock.setAttribute("gltf-model", "#rock");
-        rock.setAttribute("position", {
-          x: Math.random() * 300 - 100, // positionne aléatoirement les rochers
-          y: 0,
-          z: Math.random() * 300 - 100,
+      <a-entity random-rocks></a-entity>
+      <a-entity
+        random-cliffs="positions: -198.665 0 50, 60 0 -81.339, 120 0 40.668, -150 0 -49.037, 20.141 0 98.020; scales: 0.020 0.020 0.020, 0.01 0.01 0.01, 0.007 0.007 0.007, 0.006 0.006 0.006, 0.008 0.008 0.008"
+      ></a-entity>
+      <a-sound src="#audio" autoplay="true" loop="true"></a-sound>
+      <script>
+        AFRAME.registerComponent("random-rocks", {
+          init: function () {
+            for (let i = 0; i < 25; i++) {
+              let rock = document.createElement("a-entity");
+              rock.setAttribute("gltf-model", "#rock");
+              rock.setAttribute("position", {
+                x: Math.random() * 300 - 100, // positionne aléatoirement les rochers
+                y: 0,
+                z: Math.random() * 300 - 100,
+              });
+              rock.setAttribute("scale", "2 3.2 1.6");
+              rock.setAttribute("rotation", "0 0 90");
+              this.el.appendChild(rock);
+            }
+          },
         });
-        rock.setAttribute("scale", "2 3.2 1.6");
-        rock.setAttribute("rotation", "0 0 90");
-        this.el.appendChild(rock);
-      }
-    },
-  });
 
-  AFRAME.registerComponent("random-cliffs", {
-    schema: {
-      positions: { type: 'array' },
-      scales: { type: 'array' }
-    },
-    init: function () {
-      const positions = this.data.positions;
-      const scales = this.data.scales;
-      for (let i = 0; i < positions.length; i++) {
-        let cliff = document.createElement("a-entity");
-        cliff.setAttribute("gltf-model", "#cliff");
-        cliff.setAttribute("position", positions[i]);
-        cliff.setAttribute("scale", scales[i]);
-        cliff.setAttribute("rotation", "0 0 0");
-        this.el.appendChild(cliff);
-      }
-    },
-  });
-</script>
-<a-sound src="#audio" autoplay="true" loop="true"></a-sound>
-
-
-
+        AFRAME.registerComponent("random-cliffs", {
+          schema: {
+            positions: { type: "array" },
+            scales: { type: "array" },
+          },
+          init: function () {
+            const positions = this.data.positions;
+            const scales = this.data.scales;
+            for (let i = 0; i < positions.length; i++) {
+              let cliff = document.createElement("a-entity");
+              cliff.setAttribute("gltf-model", "#cliff");
+              cliff.setAttribute("position", positions[i]);
+              cliff.setAttribute("scale", scales[i]);
+              cliff.setAttribute("rotation", "0 0 0");
+              this.el.appendChild(cliff);
+            }
+          },
+        });
+      </script>
     </a-scene>
   </body>
 </html>
