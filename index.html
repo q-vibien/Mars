@@ -30,12 +30,12 @@
 
       <a-sky src="#sky" rotation="0 45 0"></a-sky>
 
-      <a-entity id="rig" movement-controls position="0 0 0">
+      <a-entity id="rig" movement-controls="speed: .7" position="0 0 0">
         <a-entity
           camera
-          position="0 1.6 0"
+          position="0 2 0"
           look-controls="pointerLockEnabled: true"
-          cursor="rayOrigin: mouse" 
+          cursor="rayOrigin: mouse"
         >
           <a-cursor
             color="red"
@@ -44,6 +44,23 @@
             animation__click="property: scale; startEvents: click; from: 1 1 1; to: 0.5 0.5 0.5; dur: 150"
             animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 1.5 1.5 1.5; dur: 1500"
           ></a-cursor>
+          <a-text
+            id="score"
+            value="Score: 0"
+            position="-1.30 0.75 -1"
+            color="#FFF"
+            scale=".5 .5 .5"
+          ></a-text>
+          <a-entity id="popup" position="0 .70  -2" visible="false">
+            <a-plane color="#000" width="2" height="1" position="0 0 0" opacity="0.8"></a-plane>
+            <a-text
+              value="Bravo ! Vous avez termine la mission quotidienne !"
+              position="0 0 0.01"
+              color="#FFF"
+              align="center"
+              width="1.8"
+            ></a-text>
+          </a-entity>
         </a-entity>
         <a-entity
           oculus-touch-controls="hand: left"
@@ -61,7 +78,7 @@
         particle-system="preset: dust; color: #C2B280; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
         position="-41.525 15 10"
       ></a-entity>
-    
+
       <a-light type="ambient" color="#FFA500" intensity="1"></a-light>
 
       <a-entity
@@ -79,35 +96,36 @@
         animation="property: position; to: 6.020 0.05 -10; dur: 4000; easing: linear; dir: alternate; loop: true"
       ></a-entity>
 
-      <a-entity gltf-model="#scene" position="0 0 -50" scale="1 1 1"> </a-entity
-      ><a-entity
+      <a-entity gltf-model="#scene" position="0 0 -50" scale="1 1 1"> </a-entity>
+      <a-entity
         gltf-model="#montagne"
         position="35.984 -0.5 312.140"
         scale="12.000 12.340 5"
-      >
-      </a-entity>
+      ></a-entity>
       <a-entity
         gltf-model="#canyon"
         position="73.457 -1 -324.481"
         scale="39.210 30 20"
-      >
-      </a-entity>
+      ></a-entity>
 
       <a-entity random-rocks></a-entity>
       <a-entity
         random-cliffs="positions: -198.665 0 50, 60 0 -81.339, 120 0 40.668, -150 0 -49.037, 20.141 0 98.020; scales: 0.020 0.020 0.020, 0.01 0.01 0.01, 0.007 0.007 0.007, 0.006 0.006 0.006, 0.008 0.008 0.008"
       ></a-entity>
       <a-sound src="#audio" autoplay="true" loop="true"></a-sound>
+
       <script>
+        let score = 0;
+
         AFRAME.registerComponent("random-rocks", {
           init: function () {
-            for (let i = 0; i < 10; i++) { 
+            for (let i = 0; i < 10; i++) {
               let rock = document.createElement("a-entity");
               rock.setAttribute("gltf-model", "#rock");
               rock.setAttribute("position", {
-                x: Math.random() * 300 - 100,
+                x: Math.random() * 150 - 100,
                 y: 0,
-                z: Math.random() * 300 - 100,
+                z: Math.random() * 150 - 100,
               });
               rock.setAttribute("scale", "2 3.2 1.6");
               rock.setAttribute("rotation", "0 0 90");
@@ -141,7 +159,14 @@
           init: function () {
             this.el.addEventListener("click", () => {
               this.el.parentNode.removeChild(this.el);
-              console.log("Item collected!");
+              score++;
+              document
+                .querySelector("#score")
+                .setAttribute("value", "Score: " + score);
+              if (score === 1) {
+                document.getElementById("popup").setAttribute("visible", "true");
+              }
+              console.log("Item collected! Score: " + score);
             });
           },
         });
