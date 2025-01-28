@@ -7,14 +7,14 @@
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@d5f3f8/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-environment-component@1.3.7/dist/aframe-environment-component.min.js"></script>
-
+    
     <title>Mars</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
     <!-- Ctrl alt i pour l'inspecteur -->
-    <a-scene inspector-plugin-recast>
+    <a-scene inspector-plugin-recast loading-screen="dotsColor: red; backgroundColor: black">
       <a-assets>
         <a-asset-item id="Rover" src="./assets/mars_rover_2.glb"></a-asset-item>
         <a-asset-item id="scene" src="./assets/mars_base.glb"></a-asset-item>
@@ -54,13 +54,14 @@
           <a-entity id="popup" position="0 .70  -2" visible="false">
             <a-plane color="#000" width="2" height="1" position="0 0 0" opacity="0.8"></a-plane>
             <a-text
-              value="Bravo ! Vous avez termine la mission quotidienne !"
+              value="Bravo ! Vous avez reussi la mission quotidienne !"
               position="0 0 0.01"
               color="#FFF"
               align="center"
               width="1.8"
             ></a-text>
           </a-entity>
+          <a-plane id="oxygen-bar" color="blue" width="1.5" height="0.2" position="-1.25 -0.9 -1.25"></a-plane>
         </a-entity>
         <a-entity
           oculus-touch-controls="hand: left"
@@ -77,6 +78,7 @@
       <a-entity
         particle-system="preset: dust; color: #C2B280; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
         position="-41.525 15 10"
+        scale="1 10 1"
       ></a-entity>
 
       <a-light type="ambient" color="#FFA500" intensity="1"></a-light>
@@ -114,8 +116,35 @@
       ></a-entity>
       <a-sound src="#audio" autoplay="true" loop="true"></a-sound>
 
+      <a-entity id="initial-popup" position="0 1.6 -2" visible="true">
+        <a-plane color="#000" width="2" height="1" position="0 0 0" opacity="0.8"></a-plane>
+        <a-text
+          value="Bienvenue sur Mars ! Votre mission est de collecter 10 roches pour terminer la mission ! Soyez prudent avec votre oxygene sinon..."
+          position="0 0 0.01"
+          color="#FFF"
+          align="center"
+          width="1.8"
+        ></a-text>
+      </a-entity>
+
+      <a-entity id="game-over-popup" position="0 1.6 -2" visible="false">
+        <a-plane color="#000" width="2" height="1" position="0 .75 0" opacity="0.8"></a-plane>
+        <a-text
+          value="Game Over! Vous n'avez plus d'oxygene."
+          position="0 0.75 0.01"
+          color="#FFF"
+          align="center"
+          width="1.8"
+        ></a-text>
+        <a-plane id="restart-button" color="red" width="1" height="0.5" position="0 -0.5 0.01" class="clickable">
+          <a-text value="Restart" position="0 0 0.01" color="white" align="center"></a-text>
+        </a-plane>
+      </a-entity>
+
       <script>
         let score = 0;
+        let oxygenLevel = 100;
+        let hasWon = false;
 
         AFRAME.registerComponent("random-rocks", {
           init: function () {
@@ -163,14 +192,48 @@
               document
                 .querySelector("#score")
                 .setAttribute("value", "Score: " + score);
-              if (score === 1) {
+              if (score === 10) {
                 document.getElementById("popup").setAttribute("visible", "true");
+                hasWon = true;
               }
               console.log("Item collected! Score: " + score);
             });
           },
         });
+
+        AFRAME.registerComponent("oxygen-decrease", {
+          init: function () {
+            this.el.sceneEl.addEventListener("loaded", () => {
+              this.interval = setInterval(() => {
+                if (!hasWon && oxygenLevel > 0) {
+                  oxygenLevel -= 1;
+                  document.querySelector("#oxygen-bar").setAttribute("width", oxygenLevel / 80);
+                } else if (!hasWon && oxygenLevel <= 0) {
+                  clearInterval(this.interval);
+                  document.getElementById("game-over-popup").setAttribute("visible", "true");
+                }
+              }, 1000);
+            });
+          },
+          remove: function () {
+            clearInterval(this.interval);
+          }
+        });
+
+        window.onload = function() {
+          const initialPopup = document.getElementById("initial-popup");
+          initialPopup.setAttribute("visible", "true");
+          setTimeout(() => {
+            initialPopup.setAttribute("visible", "false");
+          }, 20000);
+
+          const restartButton = document.getElementById("restart-button");
+          restartButton.addEventListener("click", () => {
+            location.reload();
+          });
+        };
       </script>
+      <a-entity oxygen-decrease></a-entity>
     </a-scene>
   </body>
 </html>
