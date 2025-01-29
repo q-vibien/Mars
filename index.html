@@ -76,9 +76,9 @@
       </a-entity>
 
       <a-entity
-        particle-system="preset: dust; color: #C2B280; particleCount: 50000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
-        position="-41.525 15 10"
-        scale="1 10 1"
+        particle-system="preset: dust; color: #C2B280; particleCount: 80000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
+        position="-41.525 1 10"
+        scale="1 1 1"
       ></a-entity>
 
       <a-light type="ambient" color="#FFA500" intensity="1"></a-light>
@@ -211,8 +211,9 @@
                 } else if (!hasWon && oxygenLevel <= 0) {
                   clearInterval(this.interval);
                   document.getElementById("game-over-popup").setAttribute("visible", "true");
+                  document.querySelector("#rig").setAttribute("position", "0 0 0");
                 }
-              }, 1000);
+              }, 100);
             });
           },
           remove: function () {
@@ -225,7 +226,7 @@
           initialPopup.setAttribute("visible", "true");
           setTimeout(() => {
             initialPopup.setAttribute("visible", "false");
-          }, 20000);
+          }, 10000);
 
           const restartButton = document.getElementById("restart-button");
           restartButton.addEventListener("click", () => {
