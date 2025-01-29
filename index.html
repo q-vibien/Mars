@@ -4,25 +4,35 @@
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-particle-system-component@a5a8449/dist/aframe-particle-system-component.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-simple-sun-sky@^1.2.2/simple-sun-sky.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@d5f3f8/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aframe-environment-component@1.3.7/dist/aframe-environment-component.min.js"></script>
-    
+
     <title>Mars</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
     <!-- Ctrl alt i pour l'inspecteur -->
-    <a-scene inspector-plugin-recast loading-screen="dotsColor: red; backgroundColor: black">
+    <a-scene
+      inspector-plugin-recast
+      loading-screen="dotsColor: red; backgroundColor: black"
+    >
       <a-assets>
         <a-asset-item id="Rover" src="./assets/mars_rover_2.glb"></a-asset-item>
         <a-asset-item id="scene" src="./assets/mars_base.glb"></a-asset-item>
-        <a-asset-item id="rock" src="./assets/desert_rock_base.glb"></a-asset-item>
+        <a-asset-item
+          id="rock"
+          src="./assets/desert_rock_base.glb"
+        ></a-asset-item>
         <a-asset-item id="robot" src="./assets/robot.glb"></a-asset-item>
         <a-asset-item id="montagne" src="./assets/mountains.glb"></a-asset-item>
-        <a-asset-item id="cliff" src="./assets/desert_cliff_6.glb"></a-asset-item>
-        <a-asset-item id="canyon" src="./assets/red_sand_desert_canyon.glb"></a-asset-item>
+        <a-asset-item
+          id="cliff"
+          src="./assets/desert_cliff_6.glb"
+        ></a-asset-item>
+        <a-asset-item
+          id="canyon"
+          src="./assets/red_sand_desert_canyon.glb"
+        ></a-asset-item>
 
         <img id="sky" src="./assets/textures/sky2.webp" />
         <audio id="audio" src="./assets/Crossing_Mars.mp3" controls></audio>
@@ -52,7 +62,13 @@
             scale=".5 .5 .5"
           ></a-text>
           <a-entity id="popup" position="0 .70  -2" visible="false">
-            <a-plane color="#000" width="2" height="1" position="0 0 0" opacity="0.8"></a-plane>
+            <a-plane
+              color="#000"
+              width="2"
+              height="1"
+              position="0 0 0"
+              opacity="0.8"
+            ></a-plane>
             <a-text
               value="Bravo ! Vous avez reussi la mission quotidienne !"
               position="0 0 0.01"
@@ -61,7 +77,13 @@
               width="1.8"
             ></a-text>
           </a-entity>
-          <a-plane id="oxygen-bar" color="blue" width="1.5" height="0.2" position="-1.25 -0.9 -1.25"></a-plane>
+          <a-plane
+            id="oxygen-bar"
+            color="blue"
+            width="1.5"
+            height="0.2"
+            position="-1 -0.9 -1.25"
+          ></a-plane>
         </a-entity>
         <a-entity
           oculus-touch-controls="hand: left"
@@ -76,12 +98,12 @@
       </a-entity>
 
       <a-entity
-        particle-system="preset: dust; color: #C2B280; particleCount: 80000; texture: ./assets/textures/red_sand.jpg; size: .2; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
-        position="-41.525 1 10"
+        particle-system="preset: dust; color: #C2B280; particleCount: 15000; texture: ./assets/textures/red_sand.webp; size: .15; velocityValue: -50 0 50; velocitySpread: 50 0 10;"
+        position="-24.224 1 39.129"
         scale="1 1 1"
       ></a-entity>
 
-      <a-light type="ambient" color="#FFA500" intensity="1"></a-light>
+      <a-light type="ambient" color="#FFA500" intensity=".5"></a-light>
 
       <a-entity
         gltf-model="#Rover"
@@ -95,10 +117,11 @@
         position="6.020 0.05 -13.680"
         scale=".008 .008 .008"
         rotation="0 170 0"
-        animation="property: position; to: 6.020 0.05 -10; dur: 4000; easing: linear; dir: alternate; loop: true"
+        animation="property: position; to: 6.020 0.05 -10; dur: 8000; easing: linear; dir: alternate; loop: true"
       ></a-entity>
 
-      <a-entity gltf-model="#scene" position="0 0 -50" scale="1 1 1"> </a-entity>
+      <a-entity gltf-model="#scene" position="0 0 -50" scale="1 1 1">
+      </a-entity>
       <a-entity
         gltf-model="#montagne"
         position="35.984 -0.5 312.140"
@@ -117,7 +140,13 @@
       <a-sound src="#audio" autoplay="true" loop="true"></a-sound>
 
       <a-entity id="initial-popup" position="0 1.6 -2" visible="true">
-        <a-plane color="#000" width="2" height="1" position="0 0 0" opacity="0.8"></a-plane>
+        <a-plane
+          color="#000"
+          width="2"
+          height="1"
+          position="0 0 0"
+          opacity="0.8"
+        ></a-plane>
         <a-text
           value="Bienvenue sur Mars ! Votre mission est de collecter 10 roches pour terminer la mission ! Soyez prudent avec votre oxygene sinon..."
           position="0 0 0.01"
@@ -128,7 +157,13 @@
       </a-entity>
 
       <a-entity id="game-over-popup" position="0 1.6 -2" visible="false">
-        <a-plane color="#000" width="2" height="1" position="0 .75 0" opacity="0.8"></a-plane>
+        <a-plane
+          color="#000"
+          width="2"
+          height="1"
+          position="0 .75 0"
+          opacity="0.8"
+        ></a-plane>
         <a-text
           value="Game Over! Vous n'avez plus d'oxygene."
           position="0 0.75 0.01"
@@ -136,8 +171,20 @@
           align="center"
           width="1.8"
         ></a-text>
-        <a-plane id="restart-button" color="red" width="1" height="0.5" position="0 -0.5 0.01" class="clickable">
-          <a-text value="Restart" position="0 0 0.01" color="white" align="center"></a-text>
+        <a-plane
+          id="restart-button"
+          color="red"
+          width="1"
+          height="0.5"
+          position="0 -0.5 0.01"
+          class="clickable"
+        >
+          <a-text
+            value="Restart"
+            position="0 0 0.01"
+            color="white"
+            align="center"
+          ></a-text>
         </a-plane>
       </a-entity>
 
@@ -148,7 +195,7 @@
 
         AFRAME.registerComponent("random-rocks", {
           init: function () {
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 15; i++) {
               let rock = document.createElement("a-entity");
               rock.setAttribute("gltf-model", "#rock");
               rock.setAttribute("position", {
@@ -193,7 +240,9 @@
                 .querySelector("#score")
                 .setAttribute("value", "Score: " + score);
               if (score === 10) {
-                document.getElementById("popup").setAttribute("visible", "true");
+                document
+                  .getElementById("popup")
+                  .setAttribute("visible", "true");
                 hasWon = true;
               }
               console.log("Item collected! Score: " + score);
@@ -207,26 +256,32 @@
               this.interval = setInterval(() => {
                 if (!hasWon && oxygenLevel > 0) {
                   oxygenLevel -= 1;
-                  document.querySelector("#oxygen-bar").setAttribute("width", oxygenLevel / 80);
+                  document
+                    .querySelector("#oxygen-bar")
+                    .setAttribute("width", oxygenLevel / 80);
                 } else if (!hasWon && oxygenLevel <= 0) {
                   clearInterval(this.interval);
-                  document.getElementById("game-over-popup").setAttribute("visible", "true");
-                  document.querySelector("#rig").setAttribute("position", "0 0 0");
+                  document
+                    .getElementById("game-over-popup")
+                    .setAttribute("visible", "true");
+                  document
+                    .querySelector("#rig")
+                    .setAttribute("position", "0 0 0");
                 }
               }, 1000);
             });
           },
           remove: function () {
             clearInterval(this.interval);
-          }
+          },
         });
 
-        window.onload = function() {
+        window.onload = function () {
           const initialPopup = document.getElementById("initial-popup");
           initialPopup.setAttribute("visible", "true");
           setTimeout(() => {
             initialPopup.setAttribute("visible", "false");
-          }, 10000);
+          }, 11000);
 
           const restartButton = document.getElementById("restart-button");
           restartButton.addEventListener("click", () => {
