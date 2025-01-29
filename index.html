@@ -19,21 +19,11 @@
       <a-assets>
         <a-asset-item id="Rover" src="./assets/mars_rover_2.glb"></a-asset-item>
         <a-asset-item id="scene" src="./assets/mars_base.glb"></a-asset-item>
-        <a-asset-item
-          id="rock"
-          src="./assets/desert_rock_base.glb"
-        ></a-asset-item>
+        <a-asset-item id="rock" src="./assets/desert_rock_base.glb"></a-asset-item>
         <a-asset-item id="robot" src="./assets/robot.glb"></a-asset-item>
         <a-asset-item id="montagne" src="./assets/mountains.glb"></a-asset-item>
-        <a-asset-item
-          id="cliff"
-          src="./assets/desert_cliff_6.glb"
-        ></a-asset-item>
-        <a-asset-item
-          id="canyon"
-          src="./assets/red_sand_desert_canyon.glb"
-        ></a-asset-item>
-
+        <a-asset-item id="cliff" src="./assets/desert_cliff_6.glb"></a-asset-item>
+        <a-asset-item id="canyon" src="./assets/red_sand_desert_canyon.glb"></a-asset-item>
         <img id="sky" src="./assets/textures/sky2.webp" />
         <audio id="audio" src="./assets/Crossing_Mars.mp3" controls></audio>
       </a-assets>
@@ -200,13 +190,14 @@
               rock.setAttribute("gltf-model", "#rock");
               rock.setAttribute("position", {
                 x: Math.random() * 150 - 100,
-                y: .5,
+                y: 0.5, // Increase the height to make it easier to collect
                 z: Math.random() * 150 - 100,
               });
-              rock.setAttribute("scale", "2 3.2 1.6");
+              rock.setAttribute("scale", "3 4.8 2.4"); // Increase the size
               rock.setAttribute("rotation", "0 0 90");
               rock.classList.add("collectible");
               rock.setAttribute("collect-item", "");
+              rock.setAttribute("highlight-on-hover", ""); // Add highlight on hover
               this.el.appendChild(rock);
             }
           },
@@ -246,6 +237,17 @@
                 hasWon = true;
               }
               console.log("Item collected! Score: " + score);
+            });
+          },
+        });
+
+        AFRAME.registerComponent("highlight-on-hover", {
+          init: function () {
+            this.el.addEventListener("mouseenter", () => {
+              this.el.setAttribute("material", "color", "#FFD700");
+            });
+            this.el.addEventListener("mouseleave", () => {
+              this.el.setAttribute("material", "color", "#FFF");
             });
           },
         });
